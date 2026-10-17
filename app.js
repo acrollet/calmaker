@@ -12,8 +12,8 @@ const fonts={
   helvetica:{label:'Helvetica Neue',family:'"Helvetica Neue", Helvetica, Arial, sans-serif'},
   arial:{label:'Arial',family:'Arial, sans-serif'}
 };
-const defaults={title:'HOLIDAYS 2026',...defaultDateRange(),'title-font':'canela','year-font':'noteworthy','grid-font':'canela',size:'18x24',width:'18',height:'24',orientation:'portrait','week-start':'0',shading:true};
-for (const id of ['title-font','year-font','grid-font']) {
+const defaults={title:'HOLIDAYS 2026',...defaultDateRange(),'title-font':'canela','grid-font':'canela',size:'18x24',width:'18',height:'24',orientation:'portrait','week-start':'0',shading:true};
+for (const id of ['title-font','grid-font']) {
   for(const [value,font] of Object.entries(fonts)) $(id).add(new Option(font.label,value));
 }
 function restore(values){for(const [id,value] of Object.entries(defaults)) {const input=$(id),saved=values[id]??value;if(input.type==='checkbox')input.checked=!!saved;else input.value=saved;}}
@@ -32,20 +32,19 @@ function font(key){return fonts[key]?.family||fonts.canela.family;}
 function textWidth(text,size,family,weight=400){measure.font=`${weight} ${size}px ${family}`;return measure.measureText(text).width;}
 function createScene(model) {
   const w=1080,h=w*model.size.height/model.size.width,margin=Math.min(w,h)*.051;
-  const titleFont=font($('title-font').value),yearFont=font($('year-font').value),gridFont=font($('grid-font').value);
-  const title=$('title').value.trim(),match=title.match(/^(.*?)\s+(\d{4})$/),main=match?match[1]:title,year=match?match[2]:'';
+  const titleFont=font($('title-font').value),gridFont=font($('grid-font').value);
+  const title=$('title').value.trim();
   const scene=[];
   const rect=(x,y,width,height,fill)=>scene.push({kind:'rect',x,y,width,height,fill});
   const line=(x1,y1,x2,y2,width=.9)=>scene.push({kind:'line',x1,y1,x2,y2,width});
   const text=(value,x,y,size,family,weight=400,anchor='start')=>scene.push({kind:'text',value,x,y,size,family,weight,anchor});
   rect(0,0,w,h,'#ffffff');
-  let titleSize=Math.min(85,h*.074),gap=10;
-  const titleWidth=s=>textWidth(main,s,titleFont,600)+(year?gap+textWidth(year,s,yearFont):0);
+  let titleSize=Math.min(85,h*.074);
+  const titleWidth=s=>textWidth(title,s,titleFont,600);
   if(titleWidth(titleSize)>w-2*margin) titleSize*= (w-2*margin)/titleWidth(titleSize);
   const titleY=margin+Math.min(65,h*.055);
   const fullWidth=titleWidth(titleSize),titleX=(w-fullWidth)/2;
-  text(main,titleX,titleY,titleSize,titleFont,600);
-  if(year)text(year,titleX+textWidth(main,titleSize,titleFont,600)+gap,titleY,titleSize,yearFont);
+  text(title,titleX,titleY,titleSize,titleFont,600);
   const gridTop=title?titleY+Math.min(35,h*.028):margin,gridBottom=h-margin;
   const headerHeight=Math.min(37,h*.036),gridWidth=w-2*margin,cellWidth=gridWidth/7;
   const rowHeight=(gridBottom-gridTop-headerHeight)/model.calendar.weeks;
@@ -138,6 +137,6 @@ $('download').addEventListener('click',exportPdf);
 update();
 // Explicitly load each family used by the scene before measuring the title.
 await Promise.allSettled([document.fonts.load('600 40px Cormorant'),document.fonts.load('400 40px Handlee'),document.fonts.load('400 40px OriginalCanela'),document.fonts.load('600 40px OriginalCanela'),document.fonts.load('400 40px OriginalNoteworthy')]);
-const originalCanela=document.fonts.check('400 40px OriginalCanela'),originalNoteworthy=document.fonts.check('400 40px OriginalNoteworthy');
-$('font-note').textContent=originalCanela&&originalNoteworthy?'Original fonts available: Canela Text & Noteworthy.':'Original: Canela Text & Noteworthy. Where unavailable, Cormorant Garamond & Handlee are used.';
+const originalCanela=document.fonts.check('400 40px OriginalCanela');
+$('font-note').textContent=originalCanela?'Original calendar font available: Canela Text.':'Original calendar font: Canela Text. Cormorant Garamond is used if unavailable.';
 update();

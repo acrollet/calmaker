@@ -26,8 +26,8 @@
   <link rel="icon" href="assets/favicon-32.png?v=20261017-calendar" type="image/png" sizes="32x32">
   <link rel="icon" href="assets/favicon.svg?v=20261017-calendar" type="image/svg+xml" sizes="any">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20261017-calendar" sizes="180x180">
-  <link rel="stylesheet" href="style.css?v=20261017-dates">
-  <script type="module" src="app.js?v=20261017-dates"></script>
+  <link rel="stylesheet" href="style.css?v=20261017-title">
+  <script type="module" src="app.js?v=20261017-title"></script>
 </head>
 <body>
   <header class="app-header">
@@ -44,9 +44,8 @@
           <p class="field-note">One continuous grid, from first day to last.</p>
         </fieldset>
         <fieldset><legend><span>02</span> Typography</legend>
-          <label for="title-font">Title font</label><select id="title-font" name="titleFont"></select>
-          <div class="two-columns"><div><label for="year-font">Year accent</label><select id="year-font" name="yearFont"></select></div><div><label for="grid-font">Calendar font</label><select id="grid-font" name="gridFont"></select></div></div>
-          <p class="field-note" id="font-note">The original pairing: Canela Text &amp; Noteworthy.</p>
+          <div class="two-columns" style="margin-top:0"><div><label for="title-font">Title font</label><select id="title-font" name="titleFont"></select></div><div><label for="grid-font">Calendar font</label><select id="grid-font" name="gridFont"></select></div></div>
+          <p class="field-note" id="font-note">Original calendar font: Canela Text.</p>
         </fieldset>
         <fieldset><legend><span>03</span> The printed page</legend>
           <label for="size">Paper size</label><select id="size" name="size"><option value="18x24">18 × 24 in · Poster</option><option value="24x36">24 × 36 in · Large poster</option><option value="11x17">11 × 17 in · Tabloid</option><option value="8.5x11">8.5 × 11 in · Letter</option><option value="8.27x11.69">A4 · 210 × 297 mm</option><option value="custom">Custom size</option></select>
