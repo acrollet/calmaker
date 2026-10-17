@@ -1,4 +1,4 @@
-import { calendarDays, defaultDateRange, paperSize, WEEKDAYS, makePdf } from './calendar.js';
+import { calendarDays, defaultDateRange, paperSize, WEEKDAYS, makePdf } from './calendar.js?v=20261017-dates';
 
 const $=id=>document.getElementById(id);
 const fonts={
