@@ -29,3 +29,9 @@ GitHub Pages publishes the root of `main` from this public repository. `CNAME` d
 ## Fonts
 
 See `assets/fonts/OFL-cormorant.txt` and `assets/fonts/OFL-handlee.txt` for bundled font licenses. No original document or proprietary font files are included.
+
+## Icons and sharing previews
+
+The HTML includes Open Graph metadata for Messages and other link previews, a 1200 × 630 PNG illustration, SVG/PNG/ICO favicons, and a 180 × 180 Apple touch icon. Metadata is available in the initial HTML, without JavaScript. The sharing URLs use the site's currently available HTTP address while GitHub provisions the custom-domain HTTPS certificate; update the canonical and metadata URLs to HTTPS when it is ready.
+
+Generated artwork is checked in, so deployment needs no additional tooling. To regenerate the artwork with Python and Pillow, run `python3 scripts/generate-brand-assets.py`.
