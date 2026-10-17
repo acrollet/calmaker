@@ -2,8 +2,8 @@ import { calendarDays, paperSize, WEEKDAYS, makePdf } from './calendar.js';
 
 const $=id=>document.getElementById(id);
 const fonts={
-  canela:{label:'Canela Text · original',family:'OriginalCanela, Cormorant, Georgia, serif'},
-  noteworthy:{label:'Noteworthy · original',family:'OriginalNoteworthy, Handlee, cursive'},
+  canela:{label:'Canela Text',family:'OriginalCanela, Cormorant, Georgia, serif'},
+  noteworthy:{label:'Noteworthy',family:'OriginalNoteworthy, Handlee, cursive'},
   cormorant:{label:'Cormorant Garamond',family:'Cormorant, Georgia, serif'},
   handlee:{label:'Handlee',family:'Handlee, cursive'},
   georgia:{label:'Georgia',family:'Georgia, serif'},
@@ -24,7 +24,7 @@ const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 function font(key){return fonts[key]?.family||fonts.canela.family;}
 function textWidth(text,size,family,weight=400){measure.font=`${weight} ${size}px ${family}`;return measure.measureText(text).width;}
 function createScene(model) {
-  const w=1080,h=w*model.size.height/model.size.width,margin=w*.051;
+  const w=1080,h=w*model.size.height/model.size.width,margin=Math.min(w,h)*.051;
   const titleFont=font($('title-font').value),yearFont=font($('year-font').value),gridFont=font($('grid-font').value);
   const title=$('title').value.trim(),match=title.match(/^(.*?)\s+(\d{4})$/),main=match?match[1]:title,year=match?match[2]:'';
   const scene=[];

@@ -1,6 +1,6 @@
 # Calmaker
 
-A browser-only app for making continuous, printable calendars. Published with GitHub Pages at **https://calmaker.rollett.org**.
+A browser-only app for making continuous, printable calendars. Intended address: **https://calmaker.rollett.org**.
 
 Choose a title, inclusive date range, title/year/calendar fonts, paper dimensions, orientation, first weekday, and alternating week shading. The default reproduces the HOLIDAYS 2026 reference layout: October 18, 2026–January 2, 2027, Sunday first, 18 × 24 inches.
 
@@ -24,7 +24,7 @@ Settings persist in browser local storage. No calendar data leaves the browser. 
 
 ## Hosting
 
-The repository is private; the deployed app is public. GitHub Pages publishes the root of `main`. `CNAME` declares `calmaker.rollett.org`. In Cloudflare DNS, `calmaker` is a DNS-only CNAME to `acrollet.github.io`. GitHub manages the HTTPS certificate.
+The repository is private; the intended deployed app is public. GitHub Pages can publish the root of `main` when the account plan supports private-repository Pages. `CNAME` declares `calmaker.rollett.org`. For GitHub Pages, Cloudflare DNS should point a DNS-only `calmaker` CNAME to `acrollet.github.io`; GitHub then manages the HTTPS certificate. The account's current plan rejected Pages enablement, so deployment is pending a hosting decision.
 
 ## Fonts
 
