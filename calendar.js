@@ -1,7 +1,12 @@
-// Dates use UTC throughout so daylight saving never changes a day or week.
+// Defaults follow the visitor's local date; grid calculations use UTC so
+// daylight saving never changes a day or week.
 export const DAY = 86400000;
 export const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 export const WEEKDAYS = ['SUN','MON','TUES','WED','THURS','FRI','SAT'];
+export function defaultDateRange(now = new Date()) {
+  const format = date => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  return {start:format(now),end:format(new Date(now.getFullYear(),now.getMonth()+2,0))};
+}
 export function parseDate(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) throw new Error('Choose both a start and an end date.');
   const date = new Date(value + 'T00:00:00Z');

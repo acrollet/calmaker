@@ -2,7 +2,7 @@
 
 A browser-only app for making continuous, printable calendars. Address: **https://calmaker.rollett.org**.
 
-Choose a title, inclusive date range, title/year/calendar fonts, paper dimensions, orientation, first weekday, and alternating week shading. The default reproduces the HOLIDAYS 2026 reference layout: October 18, 2026–January 2, 2027, Sunday first, 18 × 24 inches.
+Choose a title, inclusive date range, title/year/calendar fonts, paper dimensions, orientation, first weekday, and alternating week shading. The default range starts today and ends on the last day of next month, using the visitor's local date. The layout follows the HOLIDAYS 2026 reference: Sunday first, 18 × 24 inches.
 
 ## Run locally
 
@@ -20,7 +20,7 @@ Open http://localhost:4173. Run date, size, and PDF structure checks with `node 
 
 Canela Text and Noteworthy are the document's original fonts. They are used when installed and accessible to the browser. They are proprietary and are not distributed in this repository. Bundled SIL Open Font License alternatives, Cormorant Garamond and Handlee, make the app work offline without font services. Other system fonts fall back to the corresponding serif or sans-serif family. Font availability depends on the device and browser.
 
-Settings persist in browser local storage. No calendar data leaves the browser. Reset restores the reference settings. Each calendar supports an inclusive range of up to 732 days and paper dimensions from 4–48 inches per side; long ranges result in smaller writing spaces.
+Settings persist in browser local storage. The default dates advance on each visit; manually selected date ranges stay saved. Reset restores the default settings with today's date range. No calendar data leaves the browser. Each calendar supports an inclusive range of up to 732 days and paper dimensions from 4–48 inches per side; long ranges result in smaller writing spaces.
 
 ## Hosting
 

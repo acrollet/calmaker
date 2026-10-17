@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {calendarDays,parseDate,paperSize,makePdf} from '../calendar.js';
+import {calendarDays,defaultDateRange,parseDate,paperSize,makePdf} from '../calendar.js';
+
+test('defaults start today and end on the last day of next month',()=>{
+  assert.deepEqual(defaultDateRange(new Date(2026,9,17,23,59)),{start:'2026-10-17',end:'2026-11-30'});
+  assert.deepEqual(defaultDateRange(new Date(2026,0,31)),{start:'2026-01-31',end:'2026-02-28'});
+  assert.deepEqual(defaultDateRange(new Date(2024,0,31)),{start:'2024-01-31',end:'2024-02-29'});
+  assert.deepEqual(defaultDateRange(new Date(2026,11,31)),{start:'2026-12-31',end:'2027-01-31'});
+});
 
 test('reference spans 11 Sunday-first weeks across a year boundary',()=>{
   const c=calendarDays('2026-10-18','2027-01-02');

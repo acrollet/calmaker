@@ -1,4 +1,4 @@
-import { calendarDays, paperSize, WEEKDAYS, makePdf } from './calendar.js';
+import { calendarDays, defaultDateRange, paperSize, WEEKDAYS, makePdf } from './calendar.js';
 
 const $=id=>document.getElementById(id);
 const fonts={
@@ -12,12 +12,19 @@ const fonts={
   helvetica:{label:'Helvetica Neue',family:'"Helvetica Neue", Helvetica, Arial, sans-serif'},
   arial:{label:'Arial',family:'Arial, sans-serif'}
 };
-const defaults={title:'HOLIDAYS 2026',start:'2026-10-18',end:'2027-01-02','title-font':'canela','year-font':'noteworthy','grid-font':'canela',size:'18x24',width:'18',height:'24',orientation:'portrait','week-start':'0',shading:true};
+const defaults={title:'HOLIDAYS 2026',...defaultDateRange(),'title-font':'canela','year-font':'noteworthy','grid-font':'canela',size:'18x24',width:'18',height:'24',orientation:'portrait','week-start':'0',shading:true};
 for (const id of ['title-font','year-font','grid-font']) {
   for(const [value,font] of Object.entries(fonts)) $(id).add(new Option(font.label,value));
 }
 function restore(values){for(const [id,value] of Object.entries(defaults)) {const input=$(id),saved=values[id]??value;if(input.type==='checkbox')input.checked=!!saved;else input.value=saved;}}
-try {restore({...defaults,...JSON.parse(localStorage.getItem('calmaker-settings')||'{}')});} catch {restore(defaults);}
+let dateMode='auto';
+try {
+  const saved=JSON.parse(localStorage.getItem('calmaker-settings')||'{}');
+  // Migrate the original fixed default without discarding a custom date range.
+  const customLegacyRange=saved.start && saved.end && (saved.start!=='2026-10-18' || saved.end!=='2027-01-02');
+  dateMode=saved.dateMode==='custom' || (saved.dateMode!=='auto' && customLegacyRange) ? 'custom' : 'auto';
+  restore({...saved,...(dateMode==='auto'?defaultDateRange():{})});
+} catch {restore(defaults);}
 let current=null, exporting=false;
 const measure=document.createElement('canvas').getContext('2d');
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
@@ -81,16 +88,20 @@ function update() {
     $('download').disabled=exporting;$('print').disabled=exporting;
     let style=$('print-size');if(!style){style=document.createElement('style');style.id='print-size';document.head.append(style);}
     style.textContent=`@page { size: ${size.width}in ${size.height}in; margin: 0; } @media print { .paper { width:${size.width}in!important; height:${size.height}in!important; } }`;
-    try{localStorage.setItem('calmaker-settings',JSON.stringify(settingsValues()));}catch{}
+    try{localStorage.setItem('calmaker-settings',JSON.stringify({...settingsValues(),dateMode}));}catch{}
   } catch(error) {
     current=null;$('error').textContent=error.message;$('error').hidden=false;
     $('download').disabled=true;$('print').disabled=true;document.body.classList.add('invalid');
   }
 }
-$('settings').addEventListener('input',update);
-$('settings').addEventListener('change',update);
+function settingsChanged(event){
+  if(event.target.id==='start' || event.target.id==='end')dateMode='custom';
+  update();
+}
+$('settings').addEventListener('input',settingsChanged);
+$('settings').addEventListener('change',settingsChanged);
 $('settings').addEventListener('submit',event=>event.preventDefault());
-$('reset').addEventListener('click',()=>{restore(defaults);$('export-status').textContent='';update();});
+$('reset').addEventListener('click',()=>{dateMode='auto';Object.assign(defaults,defaultDateRange());restore(defaults);$('export-status').textContent='';update();});
 $('print').addEventListener('click',async()=>{await document.fonts.ready;if(current)window.print();});
 
 async function exportPdf() {

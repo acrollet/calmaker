@@ -12,7 +12,7 @@
 </head>
 <body>
   <header class="app-header">
-    <a class="brand" href="./" aria-label="Calmaker home"><span class="brand-icon" aria-hidden="true">▦</span> calmaker<span class="brand-dot">.</span></a>
+    <a class="brand" href="./" aria-label="Calmaker home"><span class="brand-icon" aria-hidden="true">▦</span> calmaker</a>
     <button type="button" class="text-button" id="reset">Reset</button>
   </header>
   <main class="workspace">
@@ -21,7 +21,7 @@
       <form id="settings" novalidate>
         <fieldset><legend><span>01</span> Your calendar</legend>
           <label for="title">Title</label><input id="title" name="title" value="HOLIDAYS 2026" maxlength="100" autocomplete="off">
-          <div class="two-columns"><div><label for="start">Start date</label><input id="start" name="start" type="date" value="2026-10-18" min="1900-01-01" max="2199-12-31" required></div><div><label for="end">End date</label><input id="end" name="end" type="date" value="2027-01-02" min="1900-01-01" max="2199-12-31" required></div></div>
+          <div class="two-columns"><div><label for="start">Start date</label><input id="start" name="start" type="date" min="1900-01-01" max="2199-12-31" required></div><div><label for="end">End date</label><input id="end" name="end" type="date" min="1900-01-01" max="2199-12-31" required></div></div>
           <p class="field-note">One continuous grid, from first day to last.</p>
         </fieldset>
         <fieldset><legend><span>02</span> Typography</legend>
