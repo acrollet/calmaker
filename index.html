@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Make a printable calendar for any stretch of time. Choose your dates, typefaces, and paper size, then download a print-ready PDF.">
   <meta name="theme-color" content="#f5f4ef">
-  <title>Calmaker — a calendar, your way</title>
+  <title>Calmaker</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <script type="module" src="app.js"></script>
@@ -13,12 +13,11 @@
 <body>
   <header class="app-header">
     <a class="brand" href="./" aria-label="Calmaker home"><span class="brand-icon" aria-hidden="true">▦</span> calmaker<span class="brand-dot">.</span></a>
-    <span class="header-note">A calendar for your kind of time.</span>
     <button type="button" class="text-button" id="reset">Reset</button>
   </header>
   <main class="workspace">
     <aside class="settings" aria-label="Calendar settings">
-      <div class="intro"><div class="eyebrow">THE CALENDAR STUDIO</div><h1>Make room <br>for your plans.</h1><p>A few details. A fresh sheet. <br>Something to look forward to.</p></div>
+      <div class="intro"><h1>Make a calendar</h1><p>Choose your dates, then print.</p></div>
       <form id="settings" novalidate>
         <fieldset><legend><span>01</span> Your calendar</legend>
           <label for="title">Title</label><input id="title" name="title" value="HOLIDAYS 2026" maxlength="100" autocomplete="off">
@@ -37,14 +36,13 @@
           <label class="checkbox-label"><input id="shading" type="checkbox" checked><span>Shade alternate weeks</span></label>
         </fieldset>
       </form>
-      <div class="export-area"><p id="error" role="alert" hidden></p><button type="button" class="primary-button" id="download"><span aria-hidden="true">↓</span> Download PDF</button><button type="button" class="print-button" id="print">Print calendar <span aria-hidden="true">↗</span></button><p class="export-note" id="export-note">One page. Ready for your wall.</p><p id="export-status" role="status" class="field-note"></p></div>
-      <div class="privacy-note"><span aria-hidden="true">○</span> Made here, in your browser. Your plans stay yours.</div>
+      <div class="export-area"><p id="error" role="alert" hidden></p><button type="button" class="primary-button" id="download"><span aria-hidden="true">↓</span> Download PDF</button><button type="button" class="print-button" id="print">Print calendar <span aria-hidden="true">↗</span></button><p class="export-note" id="export-note">Use actual size (100%) when printing.</p><p id="export-status" role="status" class="field-note"></p></div>
+      <div class="privacy-note">Settings are saved on this device.</div>
     </aside>
     <section class="preview-area" aria-label="Calendar preview">
       <div class="preview-toolbar"><div><span class="live-dot" aria-hidden="true"></span> LIVE PREVIEW</div><span id="dimensions">18 × 24 IN</span></div>
       <div class="paper-wrap"><div id="paper" class="paper" aria-label="Printable calendar"></div></div>
       <div class="preview-footer"><span id="range-summary" aria-live="polite"></span><span id="week-summary"></span></div>
-      <p class="print-tip">A little breathing room, on paper.</p>
     </section>
   </main>
 </body>
